@@ -9,12 +9,14 @@ public class Session {
     private Movie movie;
     private LocalDateTime dateTime;
     private int roomNumber;
+    private double basePrice;
     private SeatStatus[][] seatMap;
 
-    public Session(Movie movie, LocalDateTime dateTime, int roomNumber, int rows, int cols) {
+    public Session(Movie movie, LocalDateTime dateTime, int roomNumber, double basePrice, int rows, int cols) {
         this.movie = movie;
         this.dateTime = dateTime;
         this.roomNumber = roomNumber;
+        this.basePrice = basePrice;
         this.seatMap = new SeatStatus[rows][cols];
         initializeSeats();
     }
@@ -42,6 +44,8 @@ public class Session {
     public LocalDateTime getDateTime() { return dateTime; }
 
     public int getRoomNumber() { return roomNumber; }
+
+    public double getBasePrice() { return basePrice; }
 
     public SeatStatus[][] getSeatMap() { return seatMap; }
 }

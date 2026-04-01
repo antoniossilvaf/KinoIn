@@ -11,7 +11,7 @@ public class Ticket {
     private User owner;
     private int row;
     private int column;
-    private double price;
+    private double basePrice;
     private Instant purchaseDate;
     private Session session;
     private TicketStatus status;
