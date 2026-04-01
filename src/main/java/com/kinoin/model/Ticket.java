@@ -16,13 +16,13 @@ public class Ticket {
     private Session session;
     private TicketStatus status;
 
-    public Ticket(User owner, Session session, int row, int column, double price) {
+    public Ticket(User owner, Session session, int row, int column, double basePriceprice) {
         this.ticketId = "TKT-" + (idCounter++);
         this.owner = owner;
         this.session = session;
         this.row = row;
         this.column = column;
-        this.price = price;
+        this.basePrice = basePrice;
         this.purchaseDate = Instant.now();
         this.status = TicketStatus.PAID;
     }
@@ -34,7 +34,7 @@ public class Ticket {
     @Override
     public String toString() {
         return String.format("Ticket ID: %s | Movie: %s | Seat: [%d,%d] | Price: %.2f | Status: %s",
-                ticketId, session.getMovie().getTitle(), row, column, price, status);
+                ticketId, session.getMovie().getTitle(), row, column, basePrice, status);
     }
 
     public String getTicketId() { return ticketId; }
@@ -45,7 +45,7 @@ public class Ticket {
 
     public int getColumn() { return column; }
 
-    public double getPrice() {return price; }
+    public double getBasePrice() {return basePrice; }
 
     public Instant getPurchaseDate() { return purchaseDate; }
 
