@@ -19,9 +19,7 @@ public class Review {
         movie.addReview(this);
     }
 
-    public User getAuthor() {
-        return author;
-    }
+    public User getAuthor() {return author;}
 
     public void setAuthor(User author) {
         this.author = author;

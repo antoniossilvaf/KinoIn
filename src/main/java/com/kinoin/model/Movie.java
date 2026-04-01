@@ -36,9 +36,7 @@ public class Movie {
         return title;
     }
 
-    public String getGenre() {
-        return genre;
-    }
+    public String getGenre() { return genre; }
 
     public int getRatingAge() {
         return ratingAge;
