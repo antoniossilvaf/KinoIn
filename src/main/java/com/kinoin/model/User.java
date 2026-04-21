@@ -1,13 +1,16 @@
 package com.kinoin.model;
 
+import com.kinoin.enums.FriendshipStatus;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class User {
     private String name;
     private String email;
     private List<Movie> wishlist;
-    private List<User> friends;
+    private List<Friendship> friendships;
     private List<Ticket> expenseHistory;
 
     public User (String name, String email) {
@@ -15,7 +18,7 @@ public class User {
         this.email = email;
 
         this.wishlist = new ArrayList<>();
-        this.friends = new ArrayList<>();
+        this.friendships = new ArrayList<>();
         this.expenseHistory = new ArrayList<>();
     }
 
@@ -25,11 +28,29 @@ public class User {
         }
     }
 
-    public void addFriend(User friend) {
-        if (!friends.contains(friend) && friend != this) {
-            friends.add(friend);
-        }
+    public void removeFromWishlist(Movie movie) {
+        wishlist.remove(movie);
     }
+
+    public Friendship addFriend(User receiver) {
+        Friendship friendship = new Friendship(this, receiver);
+        this.friendships.add(friendship);
+        receiver.friendships.add(friendship);
+        return friendship;
+    }
+
+    public void addTicketToHistory(Ticket ticket) {
+        expenseHistory.add(ticket);
+    }
+
+    public List<User> getFriends() {
+        return friendships.stream()
+                .filter(f -> f.getStatus() == FriendshipStatus.ACCEPTED)
+                .map(f -> f.getOther(this))
+                .collect(Collectors.toList());
+    }
+
+    public List<Friendship> getFriendships() { return friendships; }
 
     public String getName() { return name; }
 
@@ -41,4 +62,7 @@ public class User {
 
     public void setEmail(String email) { this.email = email; }
 
+    public List<Movie> getWishlist() { return wishlist; }
+
+    public List<Ticket> getExpenseHistory() { return expenseHistory; }
 }

@@ -12,11 +12,19 @@ public class Seat {
         this.row = row;
         this.column = column;
         this.isVipSeat = isVipSeat;
-        this.status = SeatStatus.AVAIALBLE;
+        this.status = SeatStatus.AVAILABLE;
     }
 
     public boolean isAvaliable() {
-        return this.status == SeatStatus.AVAIALBLE;
+        return this.status == SeatStatus.AVAILABLE;
+    }
+
+    public void select() {
+        this.status = SeatStatus.SELECTED;
+    }
+
+    public boolean isSelected() {
+        return this.status == SeatStatus.SELECTED;
     }
 
     public void occupy() {
@@ -24,7 +32,7 @@ public class Seat {
     }
 
     public void release() {
-        this.status = SeatStatus.OCCUPIED;
+        this.status = SeatStatus.AVAILABLE;
     }
 
     public int getRow() { return row; }

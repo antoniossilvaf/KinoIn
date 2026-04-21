@@ -15,6 +15,10 @@ public class Cinema {
         this.sessions = new ArrayList<>();
     }
 
+    public void addSession(Session session) {
+        sessions.add(session);
+    }
+
     public List<Movie> getMoviesInCartel() {
         return sessions.stream().map(Session::getMovie).distinct().collect(Collectors.toList());
     }

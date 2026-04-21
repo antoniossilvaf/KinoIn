@@ -16,7 +16,7 @@ public class Ticket {
     private Session session;
     private TicketStatus status;
 
-    public Ticket(User owner, Session session, int row, int column, double basePriceprice) {
+    public Ticket(User owner, Session session, int row, int column, double basePrice) {
         this.ticketId = "TKT-" + (idCounter++);
         this.owner = owner;
         this.session = session;

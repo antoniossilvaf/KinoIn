@@ -1,39 +1,46 @@
 package com.kinoin.model;
 
-import com.kinoin.enums.SeatStatus;
-
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
 public class Session {
     private Movie movie;
     private LocalDateTime dateTime;
     private int roomNumber;
     private double basePrice;
-    private SeatStatus[][] seatMap;
+    private Seat[][] seatMap;
 
-    public Session(Movie movie, LocalDateTime dateTime, int roomNumber, double basePrice, int rows, int cols) {
+    public Session(Movie movie, LocalDateTime dateTime, int roomNumber, double basePrice, boolean[][] vipLayout) {
         this.movie = movie;
         this.dateTime = dateTime;
         this.roomNumber = roomNumber;
         this.basePrice = basePrice;
-        this.seatMap = new SeatStatus[rows][cols];
-        initializeSeats();
+        this.seatMap = new Seat[vipLayout.length][vipLayout[0].length];
+        initializeSeats(vipLayout);
     }
 
-    private void initializeSeats() {
-        for (SeatStatus[] seatStatuses : seatMap) {
-            Arrays.fill(seatStatuses, SeatStatus.AVAIALBLE);
-        }
+    private void initializeSeats(boolean[][] vipLayout) {
+        for (int i = 0; i < seatMap.length; i++)
+            for (int j = 0; j < seatMap[i].length; j++)
+                seatMap[i][j] = new Seat(i, j, vipLayout[i][j]);
     }
 
     public boolean isSeatAvaliable(int row, int col) {
-        return seatMap[row][col] == SeatStatus.AVAIALBLE;
+        return seatMap[row][col].isAvaliable();
+    }
+
+    public boolean selectSeat(int row, int col) {
+        Seat seat = seatMap[row][col];
+        if (seat.isAvaliable()) {
+            seat.select();
+            return true;
+        }
+        return false;
     }
 
     public boolean bookSeat(int row, int col) {
-        if (isSeatAvaliable(row, col)) {
-            seatMap[row][col] = SeatStatus.OCCUPIED;
+        Seat seat = seatMap[row][col];
+        if (seat.isAvaliable() || seat.isSelected()) {
+            seat.occupy();
             return true;
         }
         return false;
@@ -47,5 +54,5 @@ public class Session {
 
     public double getBasePrice() { return basePrice; }
 
-    public SeatStatus[][] getSeatMap() { return seatMap; }
+    public Seat[][] getSeatMap() { return seatMap; }
 }

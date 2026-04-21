@@ -2,6 +2,7 @@ package com.kinoin.model;
 
 import com.kinoin.enums.MovieStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Movie {
@@ -11,7 +12,7 @@ public class Movie {
     private MovieStatus status;
     private double averageRating;
     private int totalRatings;
-    private List<Review> reviews;
+    private List<Review> reviews = new ArrayList<>();
 
     public Movie(String title, String genre, int ratingAge, MovieStatus status) {
         this.title = title;
