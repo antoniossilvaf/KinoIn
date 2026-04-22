@@ -11,72 +11,70 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Catalog {
+
     private List<Cinema> cinemas = new ArrayList<>();
+    private List<Movie> movies = new ArrayList<>();
 
     public void addCinema(Cinema cinema) {
         cinemas.add(cinema);
     }
 
-    // Todos os filmes
-    public List<Movie> getAllMovies() {
-        return cinemas.stream()
-                .flatMap(c -> c.getSessions().stream())
-                .map(Session::getMovie)
-                .distinct()
-                .collect(Collectors.toList());
-
+    public void addMovie(Movie movie) {
+        if (!movies.contains(movie)) {
+            movies.add(movie);
+        }
     }
 
-    // Saber cinemas em que o filme está passando
-    public List<Cinema> getCinemasForMovie (Movie movie) {
+    public List<Movie> getAllMovies() {
+        return new ArrayList<>(movies);
+    }
+
+    public List<Cinema> getCinemas() {
+        return cinemas;
+    }
+
+    public List<Cinema> getCinemasForMovie(Movie movie) {
         return cinemas.stream()
                 .filter(cinema -> cinema.getSessions().stream()
                         .anyMatch(session -> session.getMovie().equals(movie)))
                 .collect(Collectors.toList());
     }
 
-    // filtros
 
     public List<Movie> filterByGenre(String genre) {
-        return getAllMovies().stream()
+        return movies.stream()
                 .filter(m -> m.getGenre().equalsIgnoreCase(genre))
                 .collect(Collectors.toList());
     }
 
     public List<Movie> filterByStatus(MovieStatus status) {
-        return getAllMovies().stream()
+        return movies.stream()
                 .filter(m -> m.getMovieStatus() == status)
                 .collect(Collectors.toList());
     }
 
     public List<Movie> filterByMaxAge(int maxAge) {
-        return getAllMovies().stream()
+        return movies.stream()
                 .filter(m -> m.getRatingAge() <= maxAge)
                 .collect(Collectors.toList());
     }
 
-    // Ordenação por avaliação
-
     public List<Movie> sortByRatingDesc() {
-        return getAllMovies().stream()
+        return movies.stream()
                 .sorted(Comparator.comparingDouble(Movie::getAverageRating).reversed())
                 .collect(Collectors.toList());
     }
 
     public List<Movie> sortByRatingAsc() {
-        return getAllMovies().stream()
+        return movies.stream()
                 .sorted(Comparator.comparingDouble(Movie::getAverageRating))
                 .collect(Collectors.toList());
     }
 
-    // Filtrado por genero e ordenado por avaliação
-
     public List<Movie> filterByGenreSortedByRating(String genre) {
-        return filterByGenre(genre).stream()
+        return movies.stream()
+                .filter(m -> m.getGenre().equalsIgnoreCase(genre))
                 .sorted(Comparator.comparingDouble(Movie::getAverageRating).reversed())
                 .collect(Collectors.toList());
     }
-
-    public List<Cinema> getCinemas() { return cinemas; }
-
 }

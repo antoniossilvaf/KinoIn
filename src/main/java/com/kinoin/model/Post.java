@@ -21,10 +21,18 @@ public abstract class Post {
     public abstract String getContent();
     public abstract String getPostType();
 
-    public void like(User user) {
-        if (!likes.contains(user)) {
+    public boolean toggleLike(User user) {
+        if (likes.contains(user)) {
+            likes.remove(user);
+            return false;
+        } else {
             likes.add(user);
+            return true;
         }
+    }
+
+    public boolean isLikedBy(User user) {
+        return likes.contains(user);
     }
 
     public int getLikesCount() { return likes.size(); }

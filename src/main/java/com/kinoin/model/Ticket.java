@@ -52,4 +52,6 @@ public class Ticket {
     public Session getSession() { return session; }
 
     public TicketStatus getStatus() { return status; }
+
+
 }

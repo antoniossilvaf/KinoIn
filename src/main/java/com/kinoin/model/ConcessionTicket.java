@@ -1,12 +1,13 @@
 package com.kinoin.model;
 
-public class ConcessionTicket extends Ticket{
-    private String concessionType;
+public class ConcessionTicket extends Ticket {
 
-    public ConcessionTicket(User owner, Session session, int row, int column, String concessionType) {
-        super(owner, session, row, column, session.getBasePrice() / 2);
-        this.concessionType = concessionType;
+    public ConcessionTicket(User user, Session session, int row, int col) {
+        super(user, session, row, col, session.getBasePrice() * 0.5);
     }
 
-    public String getConcessionType() { return concessionType; }
+    @Override
+    public String toString() {
+        return "CONCESSION - " + super.toString();
+    }
 }

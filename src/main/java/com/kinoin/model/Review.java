@@ -3,14 +3,14 @@ package com.kinoin.model;
 import java.time.LocalDate;
 
 public class Review {
-    private User author;
+    private User user;
     private Movie movie;
     private double score;
     private String comment;
     private LocalDate date;
 
-    public Review(User author, Movie movie, double score, String comment) {
-        this.author = author;
+    public Review(User user, Movie movie, double score, String comment) {
+        this.user = user;
         this.movie = movie;
         this.score = score;
         this.comment = comment;
@@ -19,10 +19,10 @@ public class Review {
         movie.addReview(this);
     }
 
-    public User getAuthor() {return author;}
+    public User getUser() {return user;}
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setUser(User author) {
+        this.user = author;
     }
 
     public String getComment() {
