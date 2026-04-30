@@ -136,10 +136,10 @@ public class Main {
     }
 
     static boolean[][] generateRoom() {
-        boolean[][] layout = new boolean[10][10];
+        boolean[][] layout = new boolean[10][20];
         for (int i = 0; i < layout.length; i++)
             for (int j = 0; j < layout[i].length; j++)
-                layout[i][j] = (i < 3); // VIP
+                layout[i][j] = (i < 2); // VIP
         return layout;
     }
 
